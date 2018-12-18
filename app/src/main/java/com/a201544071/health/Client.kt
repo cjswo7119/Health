@@ -14,3 +14,11 @@ open class Client (
     var weight:Double=0.0
 ): RealmObject(){
 }
+
+open class OrderList : RealmObject() {
+    @PrimaryKey var no:Int?=null
+    var id:String?=null
+    var count:Int?=0
+    var price:Double? =0.0
+    var address: String?=null
+}

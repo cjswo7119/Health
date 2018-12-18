@@ -7,14 +7,20 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import io.realm.Realm
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_product_order.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.yesButton
 import java.util.regex.Pattern
 
 
 class ProductOrder : AppCompatActivity() {
     val realm= Realm.getDefaultInstance()
     var loginID:String?=null
-    /*private fun insertOrder() {
+    private fun insertOrder() {
         alert(
             "가격 :" + totPrice.text.toString().toLong() + "\n" + "주소 :" + txtAddress.text.toString() + "\n",
             "주문을 진행하시겠습니까?"
@@ -22,11 +28,11 @@ class ProductOrder : AppCompatActivity() {
             yesButton {
                 realm.beginTransaction()  //트랜잭션 시작
 
-                val newOrder = realm.createObject<Client>(nextNo())
+                val newOrder = realm.createObject<OrderList>(nextNo())
                 //자체 생성한 메서드(nextNo)를 통해 기본키인 주문번호 중 가장 큰값을 조회하여 데이터가 있을 경우 더하기 1을하여 데이터 추가.
                 newOrder.id = loginID  //주문한 현재 로그인 된 사용자의 로그인 아이디 정보 전달
                 newOrder.count = ProdCnt.text.toString().toInt()  //상품 주문한 갯수 전달
-                newOrder.price = totPrice.text.toString().toLong()  //결제 금액을 전달.
+                newOrder.price = totPrice.text.toString().toDouble()  //결제 금액을 전달.
                 newOrder.address = txtAddress.text.toString() //입력한 주소를 전달.
 
                 realm.commitTransaction()  //트랜잭션 종료 반영
@@ -39,13 +45,13 @@ class ProductOrder : AppCompatActivity() {
 
     private fun nextNo():Int{
     //상품 주문 시 기본키인 상품 주문번호를 조회하여 가장 높은 수를 찾은뒤 1을 더하여 다음주문 추가
-        val maxNo=realm.where<Client>().max("no")
+        val maxNo=realm.where<OrderList>().max("no")
         //realm 객체의 max를 메서드를 통해 해당 컬럼의 가장 큰값을 반환.
         if(maxNo!=null){   //테이블에 값이 있을 경우
             return maxNo.toInt()+1  //가장 큰 주문번호에 더하기 1
         }
         return 1  //테이블에 데이터가 없을 경우 1 반환
-    }*/
+    }
     fun isAddress(word: String): Boolean {  //주소검사 (한글, 숫자, 공백(뛰어쓰기, -(하이푼))
         return Pattern.matches("(^[가-힣0-9\\s-]*$)", word)
     }
@@ -108,7 +114,7 @@ class ProductOrder : AppCompatActivity() {
                 return@setOnClickListener
             }
             //=======================================================================
-            //insertOrder()
+            insertOrder()
         }
     }
     override fun onDestroy(){

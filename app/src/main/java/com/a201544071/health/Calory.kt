@@ -79,7 +79,7 @@ class Calory : AppCompatActivity(),SensorEventListener {
             sensorManager.unregisterListener(this)  //센서해제
         }
 
-        btn_Save.setOnClickListener {
+        btn_Save.setOnClickListener {  //SAVE버튼 클릭 리스너
             txt_Record.setMovementMethod(ScrollingMovementMethod())  //텍스트뷰에 수직 스크롤바 추가.
             txt_Record.append(java.text.SimpleDateFormat("MM/dd hh:mm").format(java.util.Date())+"\t걸음수 :"+footcount.toString()+"\t소모칼로리 :"+consumKcal.toString()+"\n")
             //텍스트 뷰에 기록저장(월/일 시:분 걸음수 소모칼로리)

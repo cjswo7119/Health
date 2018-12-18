@@ -83,6 +83,7 @@ class Join : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Realm.init(this)
         setContentView(R.layout.activity_join)
 
         var userid:String="" //중복확인으로 확인된 아이디인지 판별하기 위한 검사용 문자열 변수

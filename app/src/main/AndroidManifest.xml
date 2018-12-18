@@ -71,6 +71,10 @@
                 android:name=".Home"
                 android:parentActivityName=".Main">
         </activity>
+        <activity android:name=".OrderList">
+        </activity>
+        <activity android:name=".Order">
+        </activity>
     </application>
 
 </manifest>
